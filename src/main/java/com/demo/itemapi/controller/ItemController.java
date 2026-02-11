@@ -19,19 +19,16 @@ public class ItemController {
 
     private final ItemService service;
 
-    // Constructor injection (best practice)
     public ItemController(ItemService service) {
         this.service = service;
     }
 
-    // POST /api/items
     @PostMapping
     public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
         Item savedItem = service.addItem(item);
         return ResponseEntity.ok(savedItem);
     }
-
-    // GET /api/items/{id}
+ 
     @GetMapping("/{id}")
     public ResponseEntity<Item> getItem(@PathVariable int id) {
         Item item = service.getItemById(id);
