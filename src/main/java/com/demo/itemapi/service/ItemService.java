@@ -1,12 +1,8 @@
 package com.demo.itemapi.service;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.demo.itemapi.model.Item;
-
 @Service
 public class ItemService {
 
