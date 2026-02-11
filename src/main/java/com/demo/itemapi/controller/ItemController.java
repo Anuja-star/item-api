@@ -1,4 +1,5 @@
 package com.demo.itemapi.controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,20 +21,25 @@ public class ItemController {
         this.service = service;
     }
 
+    @GetMapping
+    public ResponseEntity<String> home() {
+        return ResponseEntity.ok("Item API is running successfully 🚀");
+    }
+
     @PostMapping
     public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
         Item savedItem = service.addItem(item);
-        return ResponseEntity.ok(savedItem);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedItem);
     }
- 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getItem(@PathVariable int id) {
+    public ResponseEntity<?> getItem(@PathVariable int id) {
         Item item = service.getItemById(id);
 
         if (item == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Item with ID " + id + " not found");
         }
-
         return ResponseEntity.ok(item);
     }
 }
